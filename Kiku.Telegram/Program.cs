@@ -1,9 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Net.Http;
-using Newtonsoft.Json;
-
-using Kiku.Telegram;
 
 var serviceCollection = new ServiceCollection();
 serviceCollection.AddLogging(static builder => builder.AddConsole());
