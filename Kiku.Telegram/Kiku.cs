@@ -4,49 +4,45 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace Kiku.Telegram {
-    internal class Kiku(ILogger<Kiku> logger) {
-        private TelegramBotClient client = null!;
+namespace Kiku.Telegram;
 
-        public async Task RunAsync() {
-            using var cts = new CancellationTokenSource();
-            client = new TelegramBotClient("6335377827:AAEkKRfPZt-HP46ssF_ibLLBSglam5R18dI", cancellationToken: cts.Token);
-            var me = await client.GetMeAsync();
-            client.OnMessage += OnMessage;
-            // client.OnMessage += OnEbloMessage;
+internal class Kiku(ILogger<Kiku> logger) {
+    private TelegramBotClient client = null!;
 
-            logger.LogInformation($"@{me.Username} is running... Press Enter to terminate");
-            _ = Console.ReadLine();
-            cts.Cancel();
+    public async Task RunAsync() {
+        using var cts = new CancellationTokenSource();
+        var token = Environment.GetCommandLineArgs()[1];
+        client = new TelegramBotClient(token, cancellationToken: cts.Token);
+        var me = await client.GetMeAsync();
+        client.OnMessage += OnEbloMessage;
 
+        logger.LogInformation($"@{me.Username} is running... Press Enter to terminate");
+        _ = Console.ReadLine();
+        cts.Cancel();
+    }
+
+    private async Task OnEbloMessage(Message msg, UpdateType upd) {
+        if (msg.Text is null) {
+            logger.LogInformation("berba");
+            return;
         }
+        var tgargs = msg.Text?.Split(' ').ToList();
+        tgargs?.ForEach(static el => el?.Trim());
+        if (tgargs?[0] == "weather") {
+            using var httpClient = new HttpClient();
+            var weather = await httpClient.GetFromJsonAsync<WeatherRequest>($"https://wttr.in/{tgargs[1]}?format=j1");
+            var weatherMessage =
+                weather == null
+                    ? "Wrong city"
+                    : $"""
+                            City: {weather.nearest_area[0].region[0].value}
+                            Country: {weather.nearest_area[0].country[0].value}
+                            Day: {weather.weather[0].maxtempC} Night: {weather.weather[0].mintempC}
+                            """;
+            logger.LogInformation("weather");
 
-        private async Task OnMessage(Message msg, UpdateType type) {
-            if (msg.Text is null) return;
-            logger.LogInformation($"Received {type} '{msg.Text}' in {msg.Chat}");
-            _ = await client.SendTextMessageAsync(msg.Chat, $"{msg.From} said: {msg.Text}");
-        }
-
-        private async Task OnEbloMessage(Message msg, UpdateType upd) {
-            var tgargs = msg.Text?.Split(' ').ToList();
-            tgargs?.ForEach(static el => el?.Trim());
-            if (msg.Text != null) {
-                if (tgargs?[0] == "eblo") {
-
-                    using var httpClient = new HttpClient() {
-
-                    };
-
-                    if (msg.Text != null) {
-                        var weather = await httpClient.GetFromJsonAsync<WeatherRequest>($"https://wttr.in/{tgargs[1]}?format=j1");
-
-                        if (weather != null) {
-                            _ = await client.SendTextMessageAsync(msg.Chat, weather.current_condition[0].temp_C + " " + weather.nearest_area[0].country[0].value);
-                            return;
-                        }
-                    }
-                }
-            }
+            _ = await client.SendTextMessageAsync(msg.Chat, weatherMessage);
+            return;
         }
     }
 }
