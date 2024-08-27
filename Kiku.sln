@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiku.Domain", "Kiku.Domain\Kiku.Domain.csproj", "{E8CDE6ED-CD3A-4048-AAAD-DED7BE4F9AC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiku.Domain", "Kiku.Domain\Kiku.Domain.csproj", "{70B74E60-A4E2-423C-8743-46226E3994F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiku.Logic", "Kiku.Logic\Kiku.Logic.csproj", "{6FBC9EC1-571C-46EA-AD15-2D23F36154BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiku.Logic", "Kiku.Logic\Kiku.Logic.csproj", "{F1A58A38-C1B0-4FFE-BD07-3E5CA6239978}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiku.Persistence", "Kiku.Persistence\Kiku.Persistence.csproj", "{21119C4E-D6B9-4646-B1BD-5C0292567BC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiku.Persistence", "Kiku.Persistence\Kiku.Persistence.csproj", "{743F73DA-C360-4818-835C-37F390E3F77A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiku.Telegram", "Kiku.Telegram\Kiku.Telegram.csproj", "{C0E4C156-B115-4345-9400-DA33C1293264}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiku.Telegram", "Kiku.Telegram\Kiku.Telegram.csproj", "{1C156C4A-F702-4EFF-ADB2-7C8EEA138CF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,21 +20,21 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E8CDE6ED-CD3A-4048-AAAD-DED7BE4F9AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8CDE6ED-CD3A-4048-AAAD-DED7BE4F9AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8CDE6ED-CD3A-4048-AAAD-DED7BE4F9AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8CDE6ED-CD3A-4048-AAAD-DED7BE4F9AC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FBC9EC1-571C-46EA-AD15-2D23F36154BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FBC9EC1-571C-46EA-AD15-2D23F36154BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FBC9EC1-571C-46EA-AD15-2D23F36154BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FBC9EC1-571C-46EA-AD15-2D23F36154BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21119C4E-D6B9-4646-B1BD-5C0292567BC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21119C4E-D6B9-4646-B1BD-5C0292567BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21119C4E-D6B9-4646-B1BD-5C0292567BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21119C4E-D6B9-4646-B1BD-5C0292567BC4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0E4C156-B115-4345-9400-DA33C1293264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0E4C156-B115-4345-9400-DA33C1293264}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0E4C156-B115-4345-9400-DA33C1293264}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0E4C156-B115-4345-9400-DA33C1293264}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70B74E60-A4E2-423C-8743-46226E3994F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70B74E60-A4E2-423C-8743-46226E3994F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70B74E60-A4E2-423C-8743-46226E3994F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70B74E60-A4E2-423C-8743-46226E3994F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1A58A38-C1B0-4FFE-BD07-3E5CA6239978}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1A58A38-C1B0-4FFE-BD07-3E5CA6239978}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1A58A38-C1B0-4FFE-BD07-3E5CA6239978}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1A58A38-C1B0-4FFE-BD07-3E5CA6239978}.Release|Any CPU.Build.0 = Release|Any CPU
+		{743F73DA-C360-4818-835C-37F390E3F77A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{743F73DA-C360-4818-835C-37F390E3F77A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{743F73DA-C360-4818-835C-37F390E3F77A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{743F73DA-C360-4818-835C-37F390E3F77A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C156C4A-F702-4EFF-ADB2-7C8EEA138CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C156C4A-F702-4EFF-ADB2-7C8EEA138CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C156C4A-F702-4EFF-ADB2-7C8EEA138CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C156C4A-F702-4EFF-ADB2-7C8EEA138CF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

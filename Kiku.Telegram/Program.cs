@@ -1,2 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿Console.WriteLine("Hello, World!");
+
+string bebra = "";
+
+class Bebra {
+    public Bebra() {
+        System.Console.WriteLine("BEbra");
+    }
+}
