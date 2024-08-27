@@ -10,7 +10,7 @@ namespace Kiku.Telegram {
 
         public async Task RunAsync() {
             using var cts = new CancellationTokenSource();
-            client = new TelegramBotClient("6335377827:AAEkKRfPZt-HP46ssF_ibLLBSglam5R18dIa", cancellationToken: cts.Token);
+            client = new TelegramBotClient("6335377827:AAEkKRfPZt-HP46ssF_ibLLBSglam5R18dI", cancellationToken: cts.Token);
             var me = await client.GetMeAsync();
             client.OnMessage += OnMessage;
             // client.OnMessage += OnEbloMessage;
