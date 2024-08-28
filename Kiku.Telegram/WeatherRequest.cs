@@ -1,4 +1,7 @@
-﻿namespace Kiku.Telegram; 
+﻿namespace Kiku.Telegram;
+
+#pragma warning disable IDE1006
+#pragma warning disable CA1707
 
 public record WeatherRequest(
     Current_condition[] current_condition,

@@ -1,5 +1,5 @@
 ﻿namespace Kiku.Logic;
 
-public class Bebra {
+public class WeatherService {
 
 }
