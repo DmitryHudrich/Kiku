@@ -1,4 +1,4 @@
-﻿using System.Net.Http.Json;
+﻿using Kiku.Logic;
 using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -6,7 +6,7 @@ using Telegram.Bot.Types.Enums;
 
 namespace Kiku.Telegram;
 
-internal class Kiku(ILogger<Kiku> logger) {
+internal class Kiku(ILogger<Kiku> logger, IWeatherService weatherService) {
     private TelegramBotClient client = null!;
 
     public async Task RunAsync() {
@@ -14,35 +14,44 @@ internal class Kiku(ILogger<Kiku> logger) {
         var token = Environment.GetCommandLineArgs()[1];
         client = new TelegramBotClient(token, cancellationToken: cts.Token);
         var me = await client.GetMeAsync();
-        client.OnMessage += OnEbloMessage;
+        client.OnMessage += PrepairDispatch;
 
         logger.LogInformation($"@{me.Username} is running... Press Enter to terminate");
         _ = Console.ReadLine();
         cts.Cancel();
     }
 
-    private async Task OnEbloMessage(Message msg, UpdateType upd) {
+    private async Task PrepairDispatch(Message msg, UpdateType upd) {
         if (msg.Text is null) {
-            logger.LogInformation("berba");
+            logger.LogInformation("msg is null");
             return;
         }
         var tgargs = msg.Text?.Split(' ').ToList();
         tgargs?.ForEach(static el => el?.Trim());
-        if (tgargs?[0] == "weather") {
-            using var httpClient = new HttpClient();
-            var weather = await httpClient.GetFromJsonAsync<WeatherRequest>($"https://wttr.in/{tgargs[1]}?format=j1");
-            var weatherMessage =
-                weather == null
-                    ? "Wrong city"
-                    : $"""
-                            City: {weather.nearest_area[0].region[0].value}
-                            Country: {weather.nearest_area[0].country[0].value}
-                            Day: {weather.weather[0].maxtempC} Night: {weather.weather[0].mintempC}
-                            """;
-            logger.LogInformation("weather");
 
-            _ = await client.SendTextMessageAsync(msg.Chat, weatherMessage);
-            return;
+        await Dispatch(msg, tgargs);
+    }
+
+    private async Task Dispatch(Message message, List<String>? userMessageArgs) {
+        switch (userMessageArgs?[0]) {
+            case "weather":
+                await SendWeather(message.Chat, userMessageArgs[1]);
+                break;
+            default:
+                break;
         }
+    }
+
+    private async Task SendWeather(Chat chat, String city) {
+        var weather = await weatherService.GetCurrentWeatherAsync(city);
+        var weatherMessage =
+            weather == null
+                ? "Wrong city"
+                : $"""
+                    City: {weather.Place.City}
+                    Country: {weather.Place.Country}
+                    Temperature: {weather.Tempertature.CurrentTemperature}
+                    """;
+        _ = await client.SendTextMessageAsync(chat, weatherMessage);
     }
 }
