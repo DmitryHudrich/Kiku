@@ -5,14 +5,20 @@ using Microsoft.Extensions.Logging;
 namespace Kiku.Logic;
 
 public interface IWeatherService {
-    Task<Weather> GetCurrentWeatherAsync(String city);
+    Task<Weather?> GetCurrentWeatherAsync(String city);
 }
 
 public class WeatherService(ILogger<WeatherService> logger) : IWeatherService {
-    public async Task<Weather> GetCurrentWeatherAsync(String city) {
+    public async Task<Weather?> GetCurrentWeatherAsync(String city) {
         logger.LogInformation("Weather request.");
         using var httpClient = new HttpClient();
-        var weather = await httpClient.GetFromJsonAsync<Request>($"https://wttr.in/{city}?format=j1");
+        var weatherResponse = await httpClient.GetAsync($"https://wttr.in/{city}?format=j1");
+        var res = weatherResponse.StatusCode != System.Net.HttpStatusCode.NotFound ? await ParseContentAsync(weatherResponse.Content) : null;
+        return res;
+    }
+
+    private static async Task<Weather> ParseContentAsync(HttpContent content) {
+        var weather = await content.ReadFromJsonAsync<Request>();
         var res = new Weather(
             Place: new Place(
                 Country: weather!.nearest_area[0].country[0].value,
