@@ -11,7 +11,7 @@ internal class Kiku(ILogger<Kiku> logger, IWeatherService weatherService) {
 
     public async Task RunAsync() {
         using var cts = new CancellationTokenSource();
-        var token = Environment.GetCommandLineArgs()[1];
+        var token = Environment.GetEnvironmentVariable("token");
         client = new TelegramBotClient(token, cancellationToken: cts.Token);
         var me = await client.GetMeAsync();
         client.OnMessage += PrepairDispatch;
@@ -44,10 +44,11 @@ internal class Kiku(ILogger<Kiku> logger, IWeatherService weatherService) {
 
     private async Task SendWeather(Chat chat, String city) {
         var weather = await weatherService.GetCurrentWeatherAsync(city);
-        var weatherMessage =
-            weather == null
-                ? "Wrong city"
-                : $"""
+        string weatherMessage;
+        if (weather == null)
+            weatherMessage = "Wrong city";
+        else
+            weatherMessage = $"""
                     City: {weather.Place.City}
                     Country: {weather.Place.Country}
                     Temperature: {weather.Tempertature.CurrentTemperature}
